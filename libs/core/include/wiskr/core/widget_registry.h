@@ -17,7 +17,14 @@
 namespace whisker {
     namespace core {
 
-
+        struct WidgetInfo {
+            std::uint64_t id;
+            QPointer<QWidget> widget;
+            QString objectName;
+            QString className;
+            QRect geometry;
+            bool visible;
+        };
 
 
     } // namespace core
