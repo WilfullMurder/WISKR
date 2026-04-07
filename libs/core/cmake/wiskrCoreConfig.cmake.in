@@ -1,0 +1,16 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+find_dependency(Threads)
+find_dependency(skitr CONFIG REQUIRED)
+# Ensure consuming projects find nlohmann_json and asio when using the installed config
+find_dependency(nlohmann_json CONFIG REQUIRED)
+find_dependency(asio CONFIG REQUIRED)
+
+include("${CMAKE_CURRENT_LIST_DIR}/WISKRCoreTargets.cmake")
+
+if(TARGET WISKR::WISKRCore AND NOT TARGET WISKR::Core)
+    add_library(WISKR::Core ALIAS WISKR::WISKRCore)
+endif()
+
+check_required_components(WISKRCore)
