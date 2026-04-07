@@ -1,0 +1,34 @@
+@PACKAGE_INIT@
+
+if(TARGET WISKR::Core or TARGET WISKR::QtQuick)
+    return()
+endif()
+
+if(NOT WISKR_FIND_COMPONENTS)
+    set(WISKR_FIND_COMPONENTS Core QtQuick)
+endif()
+
+set(WISKR_KNOWN_COMPONENTS Core QtQuick)
+
+foreach(comp ${WISKR_FIND_COMPONENTS})
+    if(NOT ${comp} IN_LIST WISKR_KNOWN_COMPONENTS)
+        set(WISKR_NOT_FOUND_MESSAGE "Unknown WISKR component: ${comp}. Available components are: ${WISKR_KNOWN_COMPONENTS}")
+        set(WISKR_FOUND FALSE)
+        return()
+    endif()
+endforeach()
+
+foreach(comp ${WISKR_FIND_COMPONENTS})
+    set(package_name "WISKR${comp}")
+    find_package(${package_name} REQUIRED
+        PATHS "${CMAKE_CURRENT_LIST_DIR}/../../${package_name}/cmake"
+        NO_DEFAULT_PATH
+    )
+    set(WISKR_${comp}_FOUND ${${package_name}_FOUND})
+endforeach()
+
+if(TARGET WISKR::WISKRQtQuick AND NOT TARGET WISKR::WISKR)
+    add_library(WISKR::WISKR alias WISKR::WISKRQtQuick)
+endif()
+
+check_required_components(WISKR)
