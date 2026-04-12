@@ -1,8 +1,8 @@
 add_subdirectory(Core)
 
-if(WISKR_BUILD_QTQUICK)
-    add_subdirectory(Scenes/QtQuick)
-endif()
+
+add_subdirectory(Scenes/QtQuick)
+
 
 if(WISKR_BUILD_QTWIDGETS)
     add_subdirectory(Scenes/QtWidgets)
