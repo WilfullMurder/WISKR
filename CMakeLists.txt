@@ -1,8 +1,16 @@
 cmake_minimum_required(VERSION 3.28)
 project(wiskr LANGUAGES CXX)
 
+if(DEFINED ENV{QT6_ROOT} AND NOT DEFINED Qt6_DIR)
+    list(APPEND CMAKE_PREFIX_PATH "$ENV{QT6_ROOT}")
+endif()
+
+if(DEFINED ENV{Qt6_DIR} AND NOT DEFINED Qt6_DIR)
+    set(Qt6_DIR "$ENV{Qt6_DIR}" CACHE PATH "Qt6 cmake dir from environment")
+endif()
+
 option(WISKR_BUILD_EXAMPLES "Build examples" OFF)
-option(WISKR_BUILD_TESTS "Build tests" OFF)
+option(WISKR_BUILD_TESTS "Build tests" ON)
 option(WISKR_BUILD_QTQUICK "Build the QtQuick scene lib" OFF)
 option(WISKR_BUILD_QTWIDGETS "Build the QtWidgets scene lib" OFF)
 set(WISKR_QT_MAJOR "6" CACHE STRING "Major Qt version to build WISKR against")
@@ -28,12 +36,12 @@ endif()
 
 if(WISKR_BUILD_TESTS)
     enable_testing()
-    add_subdirectory(tests)
+    add_subdirectory(tests/core)
     if(WISKR_BUILD_QTQUICK)
-        add_subdirectory(libs/Scenes/QtQuick/tests)
+        add_subdirectory(tests/scenes/QtQuick)
     endif()
     if(WISKR_BUILD_QTWIDGETS)
-        add_subdirectory(libs/Scenes/QtWidgets/tests)
+        add_subdirectory(tests/scenes/QtWidgets)
     endif()
 endif()
 
