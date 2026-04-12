@@ -6,6 +6,15 @@
 #include <wiskr/data/item_path.h>
 #include <wiskr/dispatch/environment.h>
 
+/**
+ * @file libs/core/include/wiskr/commands/drag_begin.h
+ * @brief Command to begin a drag operation on a scene item.
+ *
+ * This header declares the DragBegin command used by the WISKR command
+ * dispatcher to synthesize the initial events required to start a drag
+ * sequence on a target item.
+ */
+
 namespace whisker {
     namespace cmd {
 
@@ -45,7 +54,7 @@ namespace whisker {
             void execute(Environment& env) override;
 
         private:
-            ItemPath itemPath_; ///< The path to the item to begin dragging. This is stored as a member variable for use during execution.
+            ItemPath itemPath_; ///< The path to the item to begin dragging.
         };
 
     } // namespace cmd

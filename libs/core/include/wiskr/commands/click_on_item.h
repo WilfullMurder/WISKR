@@ -8,6 +8,13 @@
 #include <wiskr/scene/events.h>
 #include <wiskr/events/identifiers.h>
 
+/**
+ * @file libs/core/include/wiskr/commands/click_on_item.h
+ * @brief Command to simulate a mouse click on an item at a specific position.
+ *
+ *
+ */
+
 namespace whisker {
     namespace cmd {
 

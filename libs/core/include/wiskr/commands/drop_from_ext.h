@@ -8,6 +8,12 @@
 #include <wiskr/data/pasteboard_content.h>
 #include <wiskr/dispatch/environment.h>
 
+/**
+ * @file libs/core/include/wiskr/commands/drop_from_ext.h
+ * @brief Command to perform an external drop onto a scene item.
+ *
+ */
+
 namespace whisker {
     namespace cmd {
 
@@ -49,8 +55,8 @@ namespace whisker {
             void execute(Environment& env) override;
 
         private:
-            ItemPath targetPath_; ///< The path to the target item for the drop. Stored as a member variable for use during execution.
-            PasteboardContent content_; ///< The content to be dropped onto the target item. Stored as a member variable for use during execution.
+            ItemPath targetPath_; ///< The path to the target item for the drop.
+            PasteboardContent content_; ///< The content to be dropped onto the target item.
         };
 
     } // namespace cmd

@@ -5,6 +5,11 @@
 #include <wiskr/commands/command.h>
 #include <wiskr/data/item_path.h>
 
+/**
+ * @file libs/core/include/wiskr/commands/drag_end.h
+ * @brief Command to end a drag operation on a scene item.
+ */
+
 namespace whisker {
     namespace cmd {
         /**
@@ -52,7 +57,7 @@ namespace whisker {
             void execute(Environment& env) override;
 
         private:
-            ItemPath itemPath_; ///< The path to the item to end dragging. Stored as a member variable for use during execution.
+            ItemPath itemPath_; ///< The path to the item to end dragging.
         };
 
     } // namespace cmd
