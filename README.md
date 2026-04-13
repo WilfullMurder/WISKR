@@ -1,3 +1,3 @@
-# WISKR
-### Window Inspection & State Knowledge Runtime
-Minimal, non-invasive UI inspection and control for Qt applications via C++ or HTTP RPC.
+<p align="center">
+<img src="https://github.com/WilfullMurder/WISKR/blob/main/docs/img/SKITR_logo.png" alt="SKITR logo" width="620"/>
+</p>
