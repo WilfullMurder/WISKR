@@ -1,0 +1,15 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+find_dependency(WISKRCore)
+
+set(WISKR_QT_MAJOR "@WISKR_QT_MAJOR@")
+find_dependency(Qt${WISKR_QT_MAJOR} COMPONENTS Core Gui Quick)
+
+include("${CMAKE_CURRENT_LIST_DIR}/WISKRQtQuickTargets.cmake")
+
+if(TARGET WISKR::WISKRQtQuick AND NOT TARGET WISKR::QtQuick)
+    add_library(WISKR::QtQuick ALIAS WISKR::WISKRQtQuick)
+endif()
+
+check_required_components(WISKRQtQuick)
