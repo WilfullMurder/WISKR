@@ -31,7 +31,7 @@ set_property(TARGET asio::asio PROPERTY
 FetchContent_Declare(
         skitr
         GIT_REPOSITORY https://github.com/WilfullMurder/SKITR.git
-        GIT_TAG v0.1.2
+        GIT_TAG v0.2.0
 )
 FetchContent_MakeAvailable(skitr)
 
@@ -166,3 +166,7 @@ install(
 
 
 add_library(WISKR::Core ALIAS WISKRCore)
+
+if(WISKR_BUILD_TESTS)
+    add_subdirectory(tests)
+endif()

@@ -36,13 +36,6 @@ endif()
 
 if(WISKR_BUILD_TESTS)
     enable_testing()
-    add_subdirectory(tests/core)
-    if(WISKR_BUILD_QTQUICK)
-        add_subdirectory(tests/scenes/QtQuick)
-    endif()
-    if(WISKR_BUILD_QTWIDGETS)
-        add_subdirectory(tests/scenes/QtWidgets)
-    endif()
 endif()
 
 include(GNUInstallDirs)
