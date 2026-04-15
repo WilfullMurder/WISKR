@@ -1,5 +1,5 @@
-#ifndef WISKR_QTQMLBOT_H
-#define WISKR_QTQMLBOT_H
+#ifndef WISKR_QT_QML_BOT_H
+#define WISKR_QT_QML_BOT_H
 
 #include <wiskr/wiskr_qtquick_export.h>
 
@@ -9,9 +9,8 @@
 
 namespace whisker {
 
-class Dispatcher;
-class QtScene;
-
+    class Dispatcher;
+    class QtScene;
 
 /**
  * @class QtQmlBot
@@ -24,10 +23,10 @@ class QtScene;
  * Instances are QObject-derived so they can be instantiated and managed from
  * Qt code (for example test harnesses that run within a Qt event loop).
  */
-class WISKRQTQUICK_EXPORT QtQmlBot : public QObject{
+    class WISKRQTQUICK_EXPORT QtQmlBot : public QObject{
     Q_OBJECT
 
-public:
+    public:
     /**
      * @brief Construct a QtQmlBot.
      * @param parent Optional QObject parent for Qt ownership semantics.
@@ -60,7 +59,7 @@ public:
      */
     void runTestServer(const TestServer& server);
 
-protected:
+    protected:
 
     /**
      * @brief Qt timer event handler.
@@ -73,12 +72,11 @@ protected:
      */
     void timerEvent(QTimerEvent* event) override;
 
-private:
+    private:
     std::unique_ptr<QtScene> scene_; ///< Owned QtScene instance that represents the scene being tested.
     std::unique_ptr<Dispatcher> dispatcher_; ///< Owned Dispatcher that routes commands to the scene thread.
 
 };
 
 } // namespace whisker
-
-#endif //WISKR_QTQMLBOT_H
+#endif //WISKR_QT_QML_BOT_H
