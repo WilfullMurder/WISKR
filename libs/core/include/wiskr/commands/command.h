@@ -1,4 +1,4 @@
- patt#ifndef WISKR_COMMAND_H
+ #ifndef WISKR_COMMAND_H
 #define WISKR_COMMAND_H
 
 #include <wiskr/wiskr_core_export.h>
