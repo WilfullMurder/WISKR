@@ -89,9 +89,14 @@ namespace whisker {
     }
 
     void TestServer::genericCommand(const std::string& command, const std::string& payload) {
-        dispatcher_->enqueueCommand<cmd::CustomCommand>([=](whisker::Environment&) {
-            handler_(command, payload);
-        }, []() {return true;});
+        auto handler = handler_;
+        dispatcher_->enqueueCommand<cmd::CustomCommand>(
+            [handler, command, payload](whisker::Environment&) {
+                if (handler) {
+                    handler(command, payload);
+                }
+            },
+            []() {return true;});
     }
 
     void TestServer::inputText(const ItemPath& path, const std::string& text) {
