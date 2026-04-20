@@ -1,36 +1,42 @@
-include(GNUInstallDirs)
-include(CMakePackageConfigHelpers)
+if(WISKR_BUILD_TESTS)
+    add_subdirectory(tests)
+endif()
 
-
-find_package(Qt${WISKR_QT_MAJOR} COMPONENTS
-        Core
-        Gui
-        Quick
-        REQUIRED
-)
-message("Building wiskr QtQuick for Qt ${WISKR_QT_MAJOR}")
+find_package(Qt${WISKR_QT_MAJOR} REQUIRED COMPONENTS Core Gui Quick Qml)
 
 file(GLOB HEADERS_PUB_ROOT "include/wiskr/*.h")
-set(HEADERS_PUB ${HEADERS_PUB_ROOT})
+file(GLOB HEADERS_PUB_SUB "include/wiskr/**/*.h")
 
 set(SOURCES
-        ${HEADERS_PUB}
+        ${HEADERS_PUB_ROOT}
+        ${HEADERS_PUB_SUB}
+
+        src/find_qt_item.cpp
+        src/qt_events.cpp
+        src/qt_item.cpp
+        src/qt_item_tools.cpp
+        src/qt_scene.cpp
         src/QtQmlBot.cpp
+        src/utils/qt_event_recorder.cpp
+        src/utils/debug_dump.cpp
 )
 
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX source FILES ${SOURCES})
+add_library(WISKRQtQuick ${SOURCES})
 
-cmake_language(CALL "qt${WISKR_QT_MAJOR}_wrap_cpp" MOC_FILES "include/wiskr/QtQmlBot.h")
+include(GenerateExportHeader)
 
-add_library(WISKRQtQuick ${SOURCES} ${MOC_FILES})
+generate_export_header(WISKRQtQuick
+        EXPORT_FILE_NAME wiskr/wiskr_qtquick_export.h
+)
+
 target_include_directories(WISKRQtQuick
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
         PRIVATE
         src
 )
-
 
 target_link_libraries(WISKRQtQuick
         PUBLIC
@@ -38,36 +44,13 @@ target_link_libraries(WISKRQtQuick
         Qt${WISKR_QT_MAJOR}::Core
         Qt${WISKR_QT_MAJOR}::Gui
         Qt${WISKR_QT_MAJOR}::Quick
+        Qt${WISKR_QT_MAJOR}::Qml
+        skitr::skitr
 )
 
-include(GenerateExportHeader)
-generate_export_header(WISKRQtQuick
-        EXPORT_FILE_NAME wiskr/wiskr_qtquick_export.h
-)
 
-install(
-        TARGETS WISKRQtQuick
-        EXPORT WISKRTargets
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)
-install (DIRECTORY include/wiskr DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+add_library(WISKR::QtQuick ALIAS WISKRQtQuick)
+
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/wiskr/wiskr_qtquick_export.h
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/wiskr
 )
-
-set(WISKR_QTQUICK_CONFIG_DIR "${CMAKE_INSTALL_DATADIR}/WISKR/qtquick/cmake")
-
-configure_package_config_file(
-        "${CMAKE_CURRENT_SOURCE_DIR}/cmake/WISKRQtQuickConfig.cmake.in"
-        "${CMAKE_CURRENT_BINARY_DIR}/WISKRQtQuickConfig.cmake"
-        INSTALL_DESTINATION "${WISKR_QTQUICK_CONFIG_DIR}"
-)
-
-install(
-        FILES "${CMAKE_CURRENT_BINARY_DIR}/WISKRQtQuickConfig.cmake"
-        DESTINATION "${WISKR_QTQUICK_CONFIG_DIR}"
-)
-
-add_library(WISKR::QtQuick ALIAS WISKRQtQuick)
