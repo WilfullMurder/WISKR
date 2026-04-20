@@ -48,6 +48,11 @@ target_link_libraries(WISKRQtQuick
         skitr::skitr
 )
 
+set_target_properties(WISKRQtQuick PROPERTIES
+        AUTOMOC ON
+        AUTOUIC ON
+        AUTORCC ON
+)
 
 add_library(WISKR::QtQuick ALIAS WISKRQtQuick)
 
