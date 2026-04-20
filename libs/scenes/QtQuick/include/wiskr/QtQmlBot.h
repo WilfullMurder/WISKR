@@ -1,5 +1,5 @@
-#ifndef WISKR_QT_QML_BOT_H
-#define WISKR_QT_QML_BOT_H
+#ifndef WISKR_QTQMLBOT_H
+#define WISKR_QTQMLBOT_H
 
 #include <wiskr/wiskr_qtquick_export.h>
 
@@ -57,7 +57,7 @@ namespace whisker {
      * The `server` reference must remain valid for the lifetime of the test
      * execution or until the server has cleanly stopped.
      */
-    void runTestServer(const TestServer& server);
+    void runTestServer(TestServer& server);
 
     protected:
 
@@ -79,4 +79,4 @@ namespace whisker {
 };
 
 } // namespace whisker
-#endif //WISKR_QT_QML_BOT_H
+#endif //WISKR_QTQMLBOT_H

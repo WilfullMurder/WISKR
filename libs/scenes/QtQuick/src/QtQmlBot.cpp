@@ -1,9 +1,9 @@
 #include <wiskr/QtQmlBot.h>
 
-#include <QtDebug>
-#include <QtScene.h>
-#include <wisker/dispatch/dispatcher.h>
+#include <wiskr/qt_scene.h>
+#include <wiskr/dispatch/dispatcher.h>
 #include <wiskr/test_server.h>
+#include <QtDebug>
 
 namespace whisker {
 
@@ -13,7 +13,7 @@ namespace whisker {
 
     QtQmlBot::~QtQmlBot() = default;
 
-    void QtQmlBot::runTestServer(const TestServer& server) {
+    void QtQmlBot::runTestServer(TestServer& server) {
         qInfo() << "Wiskr server is enabled. Only use in a test environment!";
         server.setDispatcher(dispatcher_.get());
         server.start();
